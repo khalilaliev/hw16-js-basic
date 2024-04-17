@@ -66,15 +66,19 @@ showResults(firstPromise, secondPromise, thirdPromise);
 // ---task-5--- //
 
 function showFirst(...promises) {
-  return Promise.race(promises).then((value) => {
-    console.log(value);
-  });
+  return Promise.any(promises)
+    .then((value) => {
+      console.log(value);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 const promise1 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("Promise - 1");
-  }, 1000);
+    reject("Promise - 1 with error");
+  }, 600);
 });
 const promise2 = new Promise((resolve, reject) => {
   setTimeout(() => {
